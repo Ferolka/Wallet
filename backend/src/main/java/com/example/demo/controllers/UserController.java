@@ -13,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 //import javax.validation.Valid;
 
@@ -68,6 +69,7 @@ public class UserController extends AbstractController<User, UserService> {
 
     @GetMapping("/list")
     public String list(Model model){
+        Optional<User> us = service.get(1L);
         model.addAttribute("users", service.getAll());
         return "user/list";
     }

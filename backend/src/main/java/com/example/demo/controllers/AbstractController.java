@@ -55,6 +55,16 @@ public abstract class AbstractController<E extends AbstractEntity, S extends Com
     }
 
     @Override
+    public E getModel(@RequestParam Long id) {
+        return service.get(id).map(user -> {
+            //LOG.info("Reading user with id " + id + " from database.");
+            return user;
+        }).orElseThrow(() -> new SampleException(
+                String.format(ErrorType.ENTITY_NOT_FOUND.getDescription(), id)
+        ));
+    }
+
+    @Override
     public ResponseEntity<List<E>> getAll() {
         return ResponseEntity.ok(service.getAll());
         //return "all";

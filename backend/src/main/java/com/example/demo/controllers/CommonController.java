@@ -21,6 +21,8 @@ public interface CommonController<E extends AbstractEntity> {
 
     @GetMapping
     ResponseEntity<E> get(@RequestParam Long id);
+    @GetMapping("/model")
+    E getModel(@RequestParam Long id);
 
     @GetMapping("/all")
     ResponseEntity<List<E>> getAll();
