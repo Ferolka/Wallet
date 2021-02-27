@@ -1,19 +1,18 @@
 package com.example.demo.model;
 
-import javax.persistence.Id;
+import javax.persistence.*;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.MappedSuperclass;
 import java.io.Serializable;
 
 @MappedSuperclass
 public abstract class AbstractEntity implements Serializable {
 
-
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
+    @Column(name="id", updatable=false, nullable=false)
     private Long id;
 
-    @Id
-    @GeneratedValue
+
     public Long getId() {
         return id;
     }

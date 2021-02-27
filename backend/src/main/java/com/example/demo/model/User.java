@@ -1,37 +1,25 @@
 package com.example.demo.model;
 
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
-import java.util.Collection;
-import java.util.Set;
+import javax.persistence.*;
+
+import com.example.demo.model.Transactions;
+import java.util.List;
 
 
 @Entity
 public class User extends AbstractEntity{
 
-//    @Id
-//    @GeneratedValue
-//    private Long Id;
+    @Column
     private String Name;
+    @Column
     private String Password;
+    @Column
     private String Login;
+    @Column
     private double Balance;
-
-
-    @OneToMany (mappedBy="transactions", cascade = CascadeType.ALL)
-    private Set<Transactions> Transactions;
-//    @OneToMany(mappedBy="transaction", fetch= FetchType.EAGER)
-//    private Collection<Transaction> Transactions;
-//    public Long getId() {
-//        return Id;
-//    }
-//
-//    public void setId(Long id) {
-//        Id = id;
-//    }
+    @OneToMany(mappedBy="user", fetch=FetchType.EAGER,cascade = CascadeType.ALL)
+    private List<Transactions> transactions;
 
     public String getPassword() {
         return Password;
@@ -48,7 +36,6 @@ public class User extends AbstractEntity{
     public void setLogin(String login) {
         Login = login;
     }
-
     public String getName() {
         return Name;
     }
@@ -63,6 +50,14 @@ public class User extends AbstractEntity{
 
     public void setBalance(double balance) {
         Balance = balance;
+    }
+
+    public List<Transactions> getTransactions() {
+        return transactions;
+    }
+
+    public void setTransactions(List<Transactions> transactions) {
+        this.transactions = transactions;
     }
 }
     //private String imageUrl;

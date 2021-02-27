@@ -19,15 +19,16 @@ public class TransactionService extends AbstractService<Transactions, Transactio
 //    private EntityManager em;
 
 
-//    public List<Transactions> getUserTransaction(Long userId) {
-////        StringBuilder query = new StringBuilder("from Transaction ");
-////
-////            query.append(" where userId =").append(userId).append(" ");
-////
-////        return em.createQuery(query.toString(), Transaction.class).getResultList();
+    public List<Transactions> getUserTransaction(Long userId) {
+//        StringBuilder query = new StringBuilder("from Transaction ");
+//
+//            query.append(" where userId =").append(userId).append(" ");
+//
+//        return em.createQuery(query.toString(), Transaction.class).getResultList();
 //
 //
-//        return repository.getUserTransactions(userId);
+        List<Transactions> res = repository.getUserTransactions(userId);
+        return repository.getUserTransactions(userId);
 //        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
 //        CriteriaQuery<Transaction> query = cb.createQuery(Transaction.class);
 //        Root<Transaction> tran = query.from(Transaction.class);
@@ -43,7 +44,7 @@ public class TransactionService extends AbstractService<Transactions, Transactio
 //
 //        return entityManager.createQuery(query)
 //                .getResultList();
-   // }
+    }
 
 
 }

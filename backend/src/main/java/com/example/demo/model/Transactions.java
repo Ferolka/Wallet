@@ -4,51 +4,41 @@ package com.example.demo.model;
 
 
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
 
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import java.text.DateFormat;
+
+
+
+import javax.persistence.*;
 
 @Entity
+@Table(name="transactions")
 public class Transactions extends AbstractEntity {
 
 
     //private int UserId;
     //private Long schtransactionid;
-    private DateFormat Date;
+    private String Date;
     private double Amount;
     private boolean isincome;
     private String Comment;
 
+    @ManyToOne (optional=false, cascade= CascadeType.ALL)
+    @JoinColumn (name="categoryid")
+    private Category category;
+    @ManyToOne
+    @JoinColumn (name="userid")
+    private User user;
+    @ManyToOne (optional=false, cascade= CascadeType.ALL)
+    @JoinColumn (name="schtransactionid")
+    private ScheduledTransaction scheduledTransaction;
 
 
-   // @ManyToOne(optional = false)
-//    @JoinColumn(name = "categoryid",referencedColumnName = "id")
-//    private int categoryid;
 
-//    public int getUserId() {
-//        return UserId;
-//    }
-//
-//    public void setUserId(int userId) {
-//        UserId = userId;
-//    }
-
-//    public Long getSchtransactionid() {
-//        return schtransactionid;
-//    }
-//
-//    public void setSchtransactionid(Long schtransactionid) {
-//        this.schtransactionid = schtransactionid;
-//    }
-
-    public DateFormat getDate() {
+    public String getDate() {
         return Date;
     }
 
-    public void setDate(DateFormat date) {
+    public void setDate(String date) {
         Date = date;
     }
 
@@ -75,21 +65,29 @@ public class Transactions extends AbstractEntity {
     public void setComment(String comment) {
         Comment = comment;
     }
-    @ManyToOne (optional=false, cascade= CascadeType.ALL)
-    @JoinColumn (name="categoryid")
-    private Category Category;
-    @ManyToOne (optional=false, cascade= CascadeType.ALL)
-    @JoinColumn (name="userid")
-    private User User;
-    @ManyToOne (optional=false, cascade= CascadeType.ALL)
-    @JoinColumn (name="SchTransactionId")
-    private ScheduledTransaction ScheduleTran;
 
-//    public Category getCategory() {
-//        return categoryid;
-//    }
-//
-//    public void setCategory(Category categoryid) {
-//        this.categoryid = categoryid;
-//    }
+
+    public com.example.demo.model.Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(com.example.demo.model.Category category) {
+        this.category = category;
+    }
+
+    public com.example.demo.model.User getUser() {
+        return user;
+    }
+
+    public void setUser(com.example.demo.model.User user) {
+        this.user = user;
+    }
+
+    public ScheduledTransaction getScheduledTransaction() {
+        return scheduledTransaction;
+    }
+
+    public void setScheduledTransaction(ScheduledTransaction scheduledTransaction) {
+        this.scheduledTransaction = scheduledTransaction;
+    }
 }
