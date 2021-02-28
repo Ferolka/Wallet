@@ -8,10 +8,18 @@ package com.example.demo.model;
 
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.validator.internal.util.stereotypes.Lazy;
+import org.springframework.transaction.annotation.Transactional;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name="transactions")
+@Transactional
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler","category","user","scheduledTransaction"})
 public class Transactions extends AbstractEntity {
 
 
@@ -21,14 +29,22 @@ public class Transactions extends AbstractEntity {
     private double Amount;
     private boolean isincome;
     private String Comment;
+    @Column(updatable = false,insertable = false)
+    private Long categoryid;
+    @Column(updatable = false,insertable = false)
+    private Long userid;
+    @Column(updatable = false,insertable = false)
+    private Long schtransactionid;
 
-    @ManyToOne (optional=false, cascade= CascadeType.ALL)
+
+
+    @ManyToOne (fetch=FetchType.LAZY, cascade= CascadeType.REMOVE)
     @JoinColumn (name="categoryid")
     private Category category;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY,cascade= CascadeType.REMOVE)
     @JoinColumn (name="userid")
     private User user;
-    @ManyToOne (optional=false, cascade= CascadeType.ALL)
+    @ManyToOne (fetch = FetchType.LAZY, cascade= CascadeType.REMOVE)
     @JoinColumn (name="schtransactionid")
     private ScheduledTransaction scheduledTransaction;
 
@@ -89,5 +105,29 @@ public class Transactions extends AbstractEntity {
 
     public void setScheduledTransaction(ScheduledTransaction scheduledTransaction) {
         this.scheduledTransaction = scheduledTransaction;
+    }
+
+    public Long getCategoryid() {
+        return categoryid;
+    }
+
+    public void setCategoryid(Long categoryid) {
+        this.categoryid = categoryid;
+    }
+
+    public Long getUserid() {
+        return userid;
+    }
+
+    public void setUserid(Long userid) {
+        this.userid = userid;
+    }
+
+    public Long getSchtransactionid() {
+        return schtransactionid;
+    }
+
+    public void setSchtransactionid(Long schtransactionid) {
+        this.schtransactionid = schtransactionid;
     }
 }

@@ -1,12 +1,10 @@
 package com.example.demo.services;
 
 import com.example.demo.model.Transactions;
-
 import com.example.demo.repositories.TransactionRepository;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Service

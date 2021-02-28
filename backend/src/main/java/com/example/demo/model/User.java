@@ -4,6 +4,12 @@ package com.example.demo.model;
 import javax.persistence.*;
 
 import com.example.demo.model.Transactions;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.LazyToOne;
+import org.hibernate.annotations.LazyToOneOption;
+import org.springframework.data.repository.cdi.Eager;
+
 import java.util.List;
 
 
@@ -18,7 +24,7 @@ public class User extends AbstractEntity{
     private String Login;
     @Column
     private double Balance;
-    @OneToMany(mappedBy="user", fetch=FetchType.EAGER,cascade = CascadeType.ALL)
+    @OneToMany(mappedBy="user",cascade = CascadeType.ALL)
     private List<Transactions> transactions;
 
     public String getPassword() {

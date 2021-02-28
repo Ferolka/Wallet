@@ -16,7 +16,7 @@ public class Category extends AbstractEntity {
 
 
 
-    @OneToMany (mappedBy="category", fetch= FetchType.EAGER)
+    @OneToMany (mappedBy="category")
     private Collection<Transactions> Transactions;
     public String getName() {
         return Name;
