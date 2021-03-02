@@ -1,5 +1,6 @@
 package com.example.demo.controllers;
 
+import com.example.demo.exception.NoSuchUserException;
 import com.example.demo.model.User;
 
 import com.example.demo.services.UserService;
@@ -12,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.Column;
 import java.util.List;
 import java.util.Optional;
 
@@ -67,10 +69,36 @@ public class UserController extends AbstractController<User, UserService> {
         super(service);
     }
 
+    @GetMapping(value = "/{id}")
+    public User findOne(@PathVariable Long id) {
+        return service.getUserById(id);
+    }
+
+    @PostMapping("/login")
+    @ResponseBody
+    public ResponseEntity<String> login(
+            @RequestParam("login") String login,
+            @RequestParam("password") String password)
+    {
+        Long id = service.loginUser(login, password).getId();
+        return new ResponseEntity<>(id.toString(), HttpStatus.OK);
+    }
+
+    @PostMapping("/registration")
+    public ResponseEntity<String> registration(
+            @RequestParam("name") String name,
+            @RequestParam("login") String login,
+            @RequestParam("password") String password)
+    {
+        Long id = service.registerNewUserAccount(name, login, password).getId();
+        return new ResponseEntity<>(id.toString(), HttpStatus.OK);
+    }
+
     @GetMapping("/list")
     public String list(Model model){
         Optional<User> us = service.get(1L);
         model.addAttribute("users", service.getAll());
         return "user/list";
     }
+
 }
