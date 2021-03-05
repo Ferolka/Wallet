@@ -44,7 +44,8 @@
                         this.$router.push('/'+newPage);
                         this.currentPage = this.$store.getters['currentPage'];
                         if(this.currentPage==this.auth||this.currentPage==this.calendar)
-                            this.$store.dispatch('changeLogState', LogState.IDLE)
+                            this.$store.dispatch('changeLogState', LogState.IDLE);
+                        else this.$store.dispatch('changeLogState', LogState.UPCOMING);
 
                     })
                     .catch(err => console.log(err))

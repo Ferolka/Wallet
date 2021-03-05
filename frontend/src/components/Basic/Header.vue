@@ -61,6 +61,8 @@
                     .then(()=> {
                         this.$router.push('/'+newPage);
                         this.currentPage = this.$store.getters['currentPage'];
+                        if(this.currentLogState==LogState.IDLE)
+                            this.$store.dispatch('changeLogState', LogState.UPCOMING);
                     })
                     .catch(err => console.log(err))
             }

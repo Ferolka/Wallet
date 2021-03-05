@@ -30,33 +30,22 @@
                 <executions>
                     <!-- Install our node and npm version to run npm/node scripts-->
                     <execution>
-                        <id>install node and yarn</id>
+                        <id>install node and npm</id>
                         <goals>
-                            <goal>install-node-and-yarn</goal>
+                            <goal>install-node-and-npm</goal>
                         </goals>
                         <configuration>
-                            <nodeVersion>v8.11.1</nodeVersion>
-                            <yarnVersion>v1.6.0</yarnVersion>
+                            <nodeVersion>v11.5.0</nodeVersion>
                         </configuration>
                     </execution>
-                    <!--                    &lt;!&ndash; Install yarn &ndash;&gt;-->
-<!--                    <execution>-->
-<!--                        <id>npm install &#45;&#45;global yarn</id>-->
-<!--                        <goals>-->
-<!--                            <goal>npm</goal>-->
-<!--                        </goals>-->
-<!--                        <configuration>-->
-<!--                            <arguments>install &#45;&#45;global yarn</arguments>-->
-<!--                        </configuration>-->
-<!--                    </execution>-->
                     <!-- Install all project dependencies -->
                     <execution>
-                        <id>yarn install</id>
+                        <id>npm install</id>
                         <goals>
-                            <goal>yarn</goal>
+                            <goal>npm</goal>
                         </goals>
                         <!-- optional: default phase is "generate-resources" -->
-<!--                        <phase>generate-resources</phase>-->
+                        <phase>generate-resources</phase>
                         <!-- Optional configuration which provides for running any npm command -->
                         <configuration>
                             <arguments>install</arguments>
@@ -64,12 +53,12 @@
                     </execution>
                     <!-- Build and minify static files -->
                     <execution>
-                        <id>yarn serve</id>
+                        <id>npm run build</id>
                         <goals>
-                            <goal>yarn</goal>
+                            <goal>npm</goal>
                         </goals>
                         <configuration>
-                            <arguments>serve</arguments>
+                            <arguments>run build</arguments>
                         </configuration>
                     </execution>
                 </executions>
