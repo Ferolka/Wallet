@@ -1,6 +1,8 @@
 com\example\demo\DemoApplication.class
 com\example\demo\repositories\UserRepository.class
+com\example\demo\exception\NoSuchUserException.class
 com\example\demo\controllers\UserController.class
+com\example\demo\ViewModels\TransactionViewModel.class
 com\example\demo\base\ErrorType.class
 com\example\demo\controllers\AbstractController.class
 com\example\demo\model\Category.class
@@ -11,8 +13,12 @@ com\example\demo\services\TransactionService.class
 com\example\demo\services\UserService.class
 com\example\demo\controllers\CategoryController.class
 com\example\demo\exception\SampleExceptionHandler.class
+com\example\demo\exception\UserAlreadyExistException.class
+com\example\demo\services\ScheduleTranService.class
+com\example\demo\controllers\ScheduleTranController.class
 com\example\demo\model\Transactions.class
 com\example\demo\model\ScheduledTransaction.class
+com\example\demo\repositories\ScheduleTranRepository.class
 com\example\demo\model\User.class
 com\example\demo\services\CommonService.class
 com\example\demo\repositories\TransactionRepository.class
