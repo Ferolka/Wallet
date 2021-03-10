@@ -30,10 +30,10 @@ public class DemoApplication {
 //                            .antMatchers(HttpMethod.POST, "/user/registration").hasAuthority("SCOPE_write")
 //                            .anyRequest().authenticated())
 //                    .oauth2ResourceServer(oauth2 -> oauth2.jwt());
+
         }
 
     }
-
 
 }
 //"D:\programs\mysql-8.0.19-winx64\bin\mysqld" --console
