@@ -75,7 +75,6 @@ public class UserController extends AbstractController<User, UserService> {
     }
 
     @PostMapping("/login")
-    @ResponseBody
     public ResponseEntity<String> login(
             @RequestParam("login") String login,
             @RequestParam("password") String password)
