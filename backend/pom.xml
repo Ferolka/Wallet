@@ -161,6 +161,7 @@
                                     <include>*.js</include>
                                 </includes>
                             </resource>
+
                         </resources>
                     </configuration>
                 </execution>
