@@ -2,7 +2,6 @@ com\example\demo\exception\NoSuchUserException.class
 com\example\demo\controllers\AbstractController.class
 com\example\demo\config\DatabaseConfig.class
 com\example\demo\services\TransactionService.class
-com\example\demo\DemoApplication$JWTSecurityConfig.class
 com\example\demo\exception\SampleExceptionHandler.class
 com\example\demo\exception\UserAlreadyExistException.class
 com\example\demo\services\ScheduleTranService.class

@@ -120,11 +120,19 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-maven-plugin</artifactId>
             <configuration>
+                <mainClass>com.example.demo.DemoApplication</mainClass>
                 <arguments>
                     <argument>--spring.profiles.active=prod</argument>
                 </arguments>
                 <finalName>spring-vue</finalName>
             </configuration>
+            <executions>
+                <execution>
+                    <goals>
+                        <goal>repackage</goal>
+                    </goals>
+                </execution>
+            </executions>
         </plugin>
         <plugin>
             <artifactId>maven-clean-plugin</artifactId>
