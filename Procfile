@@ -1,1 +1,1 @@
-web: java -jar backend/target/spring-vue.jar
+web: java -Dserver.port=$PORT $JAVA_OPTS -jar backend/target/spring-vue.jar
