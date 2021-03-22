@@ -1,1 +1,1 @@
-web: java -jar backend\target\spring-vue.jar
+web: java -jar backend/target/spring-vue.jar
