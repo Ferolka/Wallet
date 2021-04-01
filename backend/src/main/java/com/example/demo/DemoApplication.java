@@ -41,7 +41,7 @@ public class DemoApplication {
 //                            .antMatchers(HttpMethod.POST, "/user/registration").hasAuthority("SCOPE_write")
 //                            .anyRequest().authenticated())
 //                    .oauth2ResourceServer(oauth2 -> oauth2.jwt());
-//
+
         }
 
     }

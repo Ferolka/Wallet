@@ -1,11 +1,16 @@
 package com.example.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.springframework.transaction.annotation.Transactional;
+
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Set;
 
 @Entity
 @Table(name = "category")
+@Transactional
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler","transactions"})
 public class Category extends AbstractEntity {
     @Column
     private String Name;

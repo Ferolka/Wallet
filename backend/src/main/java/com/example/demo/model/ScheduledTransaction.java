@@ -1,5 +1,8 @@
 package com.example.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.springframework.transaction.annotation.Transactional;
+
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
@@ -8,12 +11,14 @@ import java.util.Collection;
 
 @Entity
 @Table(name = "scheduled_transaction")
+@Transactional
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler","transactions"})
 public class ScheduledTransaction extends AbstractEntity{
     private double Amount;
     private String nextsend;
     private String Schedule;
     private short Status;
-    @OneToMany(mappedBy="scheduledTransaction", fetch= FetchType.EAGER)
+    @OneToMany(mappedBy="scheduledTransaction", fetch= FetchType.LAZY)
     private Collection<Transactions> Transactions;
     public double getAmount() {
         return Amount;
