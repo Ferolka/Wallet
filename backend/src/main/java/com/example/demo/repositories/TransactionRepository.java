@@ -1,6 +1,8 @@
 package com.example.demo.repositories;
 
 
+import com.example.demo.ViewModels.CategorySum;
+import com.example.demo.ViewModels.TransactionWithSchedulViewModel;
 import com.example.demo.model.Transactions;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.data.jpa.repository.Query;
@@ -10,5 +12,17 @@ import java.util.List;
 public interface TransactionRepository extends CommonRepository<Transactions> {
     @Query(value = "SELECT * FROM transactions WHERE userid = ?1 ",nativeQuery = true)
     List<Transactions> getUserTransactions(Long userid);
-    //List<Transaction> getUserTransactions(@Param("userid") Long userid);
+
+    @Query(value = "SELECT t.Id as TranId, t.categoryid as categoryid, t.Date as Date, s.nextsend as nextsend" +
+            " FROM transactions t " +
+            "left join scheduled_transaction s on s.Id=t.schtransactionid " +
+            "WHERE userid = ?1 ",nativeQuery = true)
+    List<TransactionWithSchedulViewModel> withScheduled(Long userid);
+
+    @Query(value = "SELECT new com.example.demo.ViewModels.CategorySum(Sum(t.Amount), t.categoryid)" +
+            " FROM Transactions t " +
+            "WHERE t.userid = ?1 " +
+            "group by t.categoryid ")
+    List<CategorySum> categorySum(Long userid);
+
 }

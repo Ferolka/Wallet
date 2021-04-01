@@ -1,5 +1,7 @@
 package com.example.demo.services;
 
+import com.example.demo.ViewModels.CategorySum;
+import com.example.demo.ViewModels.TransactionWithSchedulViewModel;
 import com.example.demo.model.Transactions;
 import com.example.demo.repositories.TransactionRepository;
 import org.springframework.context.annotation.Lazy;
@@ -18,31 +20,20 @@ public class TransactionService extends AbstractService<Transactions, Transactio
 
 
     public List<Transactions> getUserTransaction(Long userId) {
-//        StringBuilder query = new StringBuilder("from Transaction ");
-//
-//            query.append(" where userId =").append(userId).append(" ");
-//
-//        return em.createQuery(query.toString(), Transaction.class).getResultList();
-//
-//
-        List<Transactions> res = repository.getUserTransactions(userId);
+
+        //List<Transactions> res = repository.getUserTransactions(userId);
         return repository.getUserTransactions(userId);
-//        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-//        CriteriaQuery<Transaction> query = cb.createQuery(Transaction.class);
-//        Root<Transaction> tran = query.from(Transaction.class);
-//
-//        Path<Long> userIdPath = tran.get("userId");
-//
-//        List<Predicate> predicates = new ArrayList<>();
-//
-//            predicates.add(cb.like(userIdPath,userId));
-//
-//        query.select(tran)
-//                .where(cb.or(predicates.toArray(new Predicate[predicates.size()])));
-//
-//        return entityManager.createQuery(query)
-//                .getResultList();
+
     }
+    public List<TransactionWithSchedulViewModel> withScheduled(Long userId) {
+        return repository.withScheduled(userId);
+
+    }
+    public List<CategorySum> categorySum(Long userId) {
+        return repository.categorySum(userId);
+
+    }
+
 
 
 }
