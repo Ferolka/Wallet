@@ -1,0 +1,33 @@
+DELIMITER $$
+CREATE TRIGGER added_transaction
+AFTER INSERT
+ON transactions FOR EACH ROW
+BEGIN
+Set @bal=0;
+select  u.balance into @bal from `user` u where u.id=NEW.userid;
+if NEW.isincome  THEN
+set @bal=@bal+NEW.amount;
+    else  set @bal=@bal-NEW.amount;
+    end if ;
+  update `user` set balance=@bal where id=NEW.userid;
+  END$$
+
+
+DELIMITER ;
+
+DELIMITER $$
+CREATE TRIGGER deleted_transaction
+AFTER Delete
+ON transactions FOR EACH ROW
+BEGIN
+Set @bal=0;
+select  u.balance into @bal from `user` u where u.id=OLD.userid;
+if OLD.isincome  THEN
+set @bal=@bal-OLD.amount;
+    else  set @bal=@bal+OLD.amount;
+    end if ;
+  update `user` set balance=@bal where id=OLD.userid;
+  END$$
+
+
+DELIMITER ;

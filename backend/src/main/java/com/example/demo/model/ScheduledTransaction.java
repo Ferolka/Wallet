@@ -16,8 +16,9 @@ import java.util.Collection;
 public class ScheduledTransaction extends AbstractEntity{
     private double Amount;
     private String nextsend;
-    private String Schedule;
+    private boolean Schedule;
     private short Status;
+    private Long userid;
     @OneToMany(mappedBy="scheduledTransaction", fetch= FetchType.LAZY)
     private Collection<Transactions> Transactions;
     public double getAmount() {
@@ -36,11 +37,11 @@ public class ScheduledTransaction extends AbstractEntity{
         this.nextsend = nextsend;
     }
 
-    public String getSchedule() {
+    public boolean getSchedule() {
         return Schedule;
     }
 
-    public void setSchedule(String schedule) {
+    public void setSchedule(boolean schedule) {
         Schedule = schedule;
     }
 
@@ -58,5 +59,13 @@ public class ScheduledTransaction extends AbstractEntity{
 
     public void setTransactions(Collection<com.example.demo.model.Transactions> transactions) {
         Transactions = transactions;
+    }
+
+    public Long getUserid() {
+        return userid;
+    }
+
+    public void setUserid(Long userid) {
+        this.userid = userid;
     }
 }

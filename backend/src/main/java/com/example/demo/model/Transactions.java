@@ -29,14 +29,22 @@ public class Transactions extends AbstractEntity {
     private double Amount;
     private boolean isincome;
     private String Comment;
-    @Column(updatable = false,insertable = false)
+   @Column(updatable = false,insertable = false)
     private Long categoryid;
     @Column(updatable = false,insertable = false)
     private Long userid;
     @Column(updatable = false,insertable = false)
     private Long schtransactionid;
 
-
+    public Transactions(double amount, String comment, String date, long categoryid, boolean isincome, Long schid, Long userid) {
+        Amount=amount;
+        Comment=comment;
+        Date=date;
+        this.categoryid=categoryid;
+        this.isincome=isincome;
+        schtransactionid=schid;
+        this.userid=userid;
+    }
 
     @ManyToOne (fetch=FetchType.LAZY, cascade= CascadeType.REMOVE)
     @JoinColumn (name="categoryid")
@@ -48,6 +56,9 @@ public class Transactions extends AbstractEntity {
     @JoinColumn (name="schtransactionid")
     private ScheduledTransaction scheduledTransaction;
 
+    public Transactions() {
+
+    }
 
 
     public String getDate() {
@@ -130,4 +141,6 @@ public class Transactions extends AbstractEntity {
     public void setSchtransactionid(Long schtransactionid) {
         this.schtransactionid = schtransactionid;
     }
+
+
 }
