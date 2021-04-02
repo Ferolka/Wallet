@@ -10,7 +10,7 @@ import java.util.Set;
 @Entity
 @Table(name = "category")
 @Transactional
-@JsonIgnoreProperties({"hibernateLazyInitializer","handler","transactions"})
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler","transactions","scheduledTransaction"})
 public class Category extends AbstractEntity {
     @Column
     private String Name;
@@ -19,7 +19,8 @@ public class Category extends AbstractEntity {
 //    @OneToMany(mappedBy="category")
 //    private Set<Transaction> transactions;
 
-
+    @OneToOne(mappedBy = "category",fetch= FetchType.LAZY)
+    private ScheduledTransaction scheduledTransaction;
 
     @OneToMany (mappedBy="category")
     private Collection<Transactions> Transactions;
@@ -51,5 +52,13 @@ public class Category extends AbstractEntity {
 
     public void setTransactions(Collection<com.example.demo.model.Transactions> transactions) {
         Transactions = transactions;
+    }
+
+    public ScheduledTransaction getScheduledTransaction() {
+        return scheduledTransaction;
+    }
+
+    public void setScheduledTransaction(ScheduledTransaction scheduledTransaction) {
+        this.scheduledTransaction = scheduledTransaction;
     }
 }

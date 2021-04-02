@@ -3,10 +3,7 @@ package com.example.demo.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Collection;
 
 @Entity
@@ -19,6 +16,9 @@ public class ScheduledTransaction extends AbstractEntity{
     private boolean Schedule;
     private short Status;
     private Long userid;
+    @OneToOne(fetch= FetchType.LAZY)
+    @JoinColumn(name = "categoryid")
+    private Category category;
     @OneToMany(mappedBy="scheduledTransaction", fetch= FetchType.LAZY)
     private Collection<Transactions> Transactions;
     public double getAmount() {
@@ -35,14 +35,6 @@ public class ScheduledTransaction extends AbstractEntity{
 
     public void setNextsend(String nextsend) {
         this.nextsend = nextsend;
-    }
-
-    public boolean getSchedule() {
-        return Schedule;
-    }
-
-    public void setSchedule(boolean schedule) {
-        Schedule = schedule;
     }
 
     public short getStatus() {
@@ -67,5 +59,21 @@ public class ScheduledTransaction extends AbstractEntity{
 
     public void setUserid(Long userid) {
         this.userid = userid;
+    }
+
+    public boolean isSchedule() {
+        return Schedule;
+    }
+
+    public void setSchedule(boolean schedule) {
+        Schedule = schedule;
+    }
+
+    public com.example.demo.model.Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(com.example.demo.model.Category category) {
+        category = category;
     }
 }

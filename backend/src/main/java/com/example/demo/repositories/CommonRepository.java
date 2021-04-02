@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 import org.springframework.ui.Model;
 
 @NoRepositoryBean
-public interface CommonRepository<E extends AbstractEntity> extends CrudRepository<E, Long> {
+public interface CommonRepository<E extends AbstractEntity> extends JpaRepository<E, Long> {
 }

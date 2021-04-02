@@ -44,7 +44,7 @@ public class ScheduleTranService extends AbstractService<ScheduledTransaction, S
             return false;
         }
         ScheduledTransaction sch = opsch.get();
-        Optional<Category> opcat = categoryRepository.findById(1l);
+        Optional<Category> opcat = categoryRepository.findById(sch.getCategory().getId());
         if(!opcat.isPresent()){
             return false;
         }
@@ -63,10 +63,10 @@ public class ScheduleTranService extends AbstractService<ScheduledTransaction, S
         tran.setScheduledTransaction(sch);
         tran.setDate(formatter.format(date));
         tran.setAmount(sch.getAmount());
-        tran.setIsincome(false);
+        tran.setIsincome(!cat.isOutcome());
         tran.setComment("Scheduled");
         transactionRepository.save(tran);
-        if(sch.getSchedule()){
+        if(sch.isSchedule()){
            date= DateUtils.addMonths(date,1);
             sch.setNextsend(formatter.format(date));
         }else {
@@ -85,7 +85,7 @@ public class ScheduleTranService extends AbstractService<ScheduledTransaction, S
         SimpleDateFormat formatter= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date = new Date(System.currentTimeMillis());
         ScheduledTransaction sch = opsch.get();
-        if(sch.getSchedule()){
+        if(sch.isSchedule()){
             date= DateUtils.addMonths(date,1);
             sch.setNextsend(formatter.format(date));
         }else {
