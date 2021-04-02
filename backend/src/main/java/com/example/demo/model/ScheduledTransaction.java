@@ -16,8 +16,8 @@ public class ScheduledTransaction extends AbstractEntity{
     private boolean Schedule;
     private short Status;
     private Long userid;
-    @OneToOne(fetch= FetchType.LAZY)
-    @JoinColumn(name = "categoryid")
+    @ManyToOne (fetch=FetchType.LAZY, cascade= CascadeType.REMOVE)
+    @JoinColumn (name="categoryid")
     private Category category;
     @OneToMany(mappedBy="scheduledTransaction", fetch= FetchType.LAZY)
     private Collection<Transactions> Transactions;

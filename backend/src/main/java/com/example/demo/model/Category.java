@@ -19,8 +19,8 @@ public class Category extends AbstractEntity {
 //    @OneToMany(mappedBy="category")
 //    private Set<Transaction> transactions;
 
-    @OneToOne(mappedBy = "category",fetch= FetchType.LAZY)
-    private ScheduledTransaction scheduledTransaction;
+    @OneToMany (mappedBy="category")
+    private Collection<ScheduledTransaction> scheduledTransaction;
 
     @OneToMany (mappedBy="category")
     private Collection<Transactions> Transactions;
@@ -54,11 +54,11 @@ public class Category extends AbstractEntity {
         Transactions = transactions;
     }
 
-    public ScheduledTransaction getScheduledTransaction() {
+    public Collection<ScheduledTransaction> getScheduledTransaction() {
         return scheduledTransaction;
     }
 
-    public void setScheduledTransaction(ScheduledTransaction scheduledTransaction) {
+    public void setScheduledTransaction(Collection<ScheduledTransaction> scheduledTransaction) {
         this.scheduledTransaction = scheduledTransaction;
     }
 }
