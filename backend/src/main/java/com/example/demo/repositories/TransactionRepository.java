@@ -10,7 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 @Lazy
 public interface TransactionRepository extends CommonRepository<Transactions> {
-    @Query(value = "SELECT * FROM transactions WHERE userid = ?1 ",nativeQuery = true)
+    @Query(value = "SELECT * FROM transactions WHERE userid = ?1 ORDER by `date` desc",nativeQuery = true)
     List<Transactions> getUserTransactions(Long userid);
 
     @Query(value = "SELECT t.Id as TranId, t.categoryid as categoryid, t.Date as Date, s.nextsend as nextsend" +
