@@ -39,4 +39,9 @@ public class TransactionController extends AbstractController<Transactions, Tran
 
         return ResponseEntity.ok(service.categorySum(userId));
     }
+    @GetMapping("/categoryProcent/{userId}/{isIncome}")
+    public ResponseEntity<List<CategorySum>> categoryProcent(@PathVariable Long userId,boolean isIncome){
+
+        return ResponseEntity.ok(service.categoryProcent(userId,isIncome));
+    }
 }

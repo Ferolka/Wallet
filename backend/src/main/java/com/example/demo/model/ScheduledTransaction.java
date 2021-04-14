@@ -9,13 +9,24 @@ import java.util.Collection;
 @Entity
 @Table(name = "scheduled_transaction")
 @Transactional
-@JsonIgnoreProperties({"hibernateLazyInitializer","handler","transactions"})
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler","transactions","user"})
 public class ScheduledTransaction extends AbstractEntity{
     private double Amount;
     private String nextsend;
     private boolean Schedule;
     private short Status;
-    private Long userid;
+    @ManyToOne(fetch = FetchType.LAZY,cascade= CascadeType.REMOVE)
+    @JoinColumn (name="userid")
+    private User user;
+    public ScheduledTransaction(double amount, String nextsend, boolean schedule,short status,User user, Category category) {
+    this.Amount=amount;
+    this.nextsend = nextsend;
+    this.Schedule=schedule;
+    this.Status=status;
+    this.user=user;
+    this.category=category;
+    }
+
     @ManyToOne (fetch=FetchType.LAZY, cascade= CascadeType.REMOVE)
     @JoinColumn (name="categoryid")
     private Category category;
@@ -53,13 +64,6 @@ public class ScheduledTransaction extends AbstractEntity{
         Transactions = transactions;
     }
 
-    public Long getUserid() {
-        return userid;
-    }
-
-    public void setUserid(Long userid) {
-        this.userid = userid;
-    }
 
     public boolean isSchedule() {
         return Schedule;
@@ -75,5 +79,16 @@ public class ScheduledTransaction extends AbstractEntity{
 
     public void setCategory(com.example.demo.model.Category category) {
         category = category;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public ScheduledTransaction() {
     }
 }

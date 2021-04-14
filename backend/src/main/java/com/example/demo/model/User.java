@@ -4,6 +4,7 @@ package com.example.demo.model;
 import javax.persistence.*;
 
 import com.example.demo.model.Transactions;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.LazyToOne;
@@ -14,6 +15,7 @@ import java.util.List;
 
 
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler","schtransactions"})
 public class User extends AbstractEntity{
 
     @Column
@@ -26,6 +28,8 @@ public class User extends AbstractEntity{
     private double Balance;
     @OneToMany(mappedBy="user",cascade = CascadeType.ALL)
     private List<Transactions> transactions;
+    @OneToMany(mappedBy="user",cascade = CascadeType.ALL)
+    private List<ScheduledTransaction> schtransactions;
 
     public String getPassword() {
         return Password;
@@ -64,6 +68,14 @@ public class User extends AbstractEntity{
 
     public void setTransactions(List<Transactions> transactions) {
         this.transactions = transactions;
+    }
+
+    public List<ScheduledTransaction> getSchtransactions() {
+        return schtransactions;
+    }
+
+    public void setSchtransactions(List<ScheduledTransaction> schtransactions) {
+        this.schtransactions = schtransactions;
     }
 }
     //private String imageUrl;

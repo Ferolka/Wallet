@@ -24,5 +24,10 @@ public interface TransactionRepository extends CommonRepository<Transactions> {
             "WHERE t.userid = ?1 " +
             "group by t.categoryid ")
     List<CategorySum> categorySum(Long userid);
+    @Query(value = "SELECT new com.example.demo.ViewModels.CategorySum(Sum(t.Amount), t.categoryid)" +
+            " FROM Transactions t " +
+            "WHERE t.userid = ?1 and t.isincome = ?2 " +
+            "group by t.categoryid ")
+    List<CategorySum> categoryProcent(Long userid, boolean isIncome);
 
 }

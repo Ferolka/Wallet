@@ -19,7 +19,7 @@ import javax.persistence.*;
 @Entity
 @Table(name="transactions")
 @Transactional
-@JsonIgnoreProperties({"hibernateLazyInitializer","handler","user"})
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler","user","scheduledTransaction"})
 public class Transactions extends AbstractEntity {
 
 
@@ -36,14 +36,15 @@ public class Transactions extends AbstractEntity {
     @Column(updatable = false,insertable = false)
     private Long schtransactionid;
 
-    public Transactions(double amount, String comment, String date, long categoryid, boolean isincome, Long schid, Long userid) {
+    public Transactions(double amount, String comment, String date,
+                        Category category, boolean isincome, ScheduledTransaction sch, User user) {
         Amount=amount;
         Comment=comment;
         Date=date;
-        this.categoryid=categoryid;
+        this.category=category;
+        this.user=user;
         this.isincome=isincome;
-        schtransactionid=schid;
-        this.userid=userid;
+        this.scheduledTransaction=sch;
     }
 
     @ManyToOne (fetch=FetchType.LAZY, cascade= CascadeType.REMOVE)

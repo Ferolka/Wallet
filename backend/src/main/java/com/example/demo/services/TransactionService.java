@@ -33,6 +33,18 @@ public class TransactionService extends AbstractService<Transactions, Transactio
         return repository.categorySum(userId);
 
     }
+    public List<CategorySum> categoryProcent(Long userId, boolean isIncome) {
+        List<CategorySum>  catSum= repository.categoryProcent(userId,isIncome);
+        double sum =0;
+        for(CategorySum a : catSum){
+            sum+=a.getTotal();
+        }
+        double finalSum = sum;
+        catSum.forEach(a->{
+            a.setTotal(a.getTotal()*100/finalSum);
+        });
+        return catSum;
+    }
 
 
 

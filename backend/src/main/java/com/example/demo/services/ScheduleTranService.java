@@ -48,7 +48,7 @@ public class ScheduleTranService extends AbstractService<ScheduledTransaction, S
         if(!opcat.isPresent()){
             return false;
         }
-        Optional<User> opuser = userRepository.findById(sch.getUserid());
+        Optional<User> opuser = userRepository.findById(sch.getUser().getId());
         if(!opuser.isPresent()){
             return false;
         }
