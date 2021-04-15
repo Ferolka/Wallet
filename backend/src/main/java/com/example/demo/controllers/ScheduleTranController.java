@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/scheduletran")
 public class ScheduleTranController extends AbstractController<ScheduledTransaction, ScheduleTranService> {
 

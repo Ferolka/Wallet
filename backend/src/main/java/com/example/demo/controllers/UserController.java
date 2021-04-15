@@ -62,6 +62,7 @@ import java.util.Optional;
 //@RestController
 
 @Controller
+@CrossOrigin
 @RequestMapping("/user")
 public class UserController extends AbstractController<User, UserService> {
 
