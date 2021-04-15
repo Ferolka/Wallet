@@ -1,5 +1,6 @@
 package com.example.demo.repositories;
 
+import com.example.demo.ViewModels.UserTransactionSum;
 import com.example.demo.model.User;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -29,4 +30,9 @@ public interface UserRepository extends CommonRepository<User> {
             @Param("login") String login,
             @Param("password") String password
     );
+    @Query(value = "SELECT new com.example.demo.ViewModels.UserTransactionSum(Sum(t.Amount), t.userid,t.isincome)" +
+            " FROM Transactions t " +
+            "WHERE t.userid = ?1 and t.isincome = ?2 " +
+            "group by t.userid ")
+    UserTransactionSum userTransactionSum(Long userid, boolean isIncome);
 }

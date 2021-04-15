@@ -99,5 +99,8 @@ public class UserController extends AbstractController<User, UserService> {
         model.addAttribute("users", service.getAll());
         return "user/list";
     }
-
+    @GetMapping(value = "getBalance/{id}")
+    public ResponseEntity<User> getBalance(@PathVariable Long id) {
+        return ResponseEntity.ok(service.getUserBalance(id));
+    }
 }

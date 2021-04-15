@@ -1,13 +1,17 @@
 package com.example.demo.services;
 
+import com.example.demo.ViewModels.UserTransactionSum;
 import com.example.demo.exception.NoSuchUserException;
 import com.example.demo.exception.UserAlreadyExistException;
+import com.example.demo.model.Transactions;
 import com.example.demo.model.User;
 import com.example.demo.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,7 +36,8 @@ public class UserService extends AbstractService<User, UserRepository> {
     public UserService(UserRepository repository) {
         super(repository);
     }
-
+    @PersistenceContext
+    private EntityManager em;
     public User registerNewUserAccount(String name, String login, String password)
             throws UserAlreadyExistException {
 
@@ -60,6 +65,17 @@ public class UserService extends AbstractService<User, UserRepository> {
             throw new NoSuchUserException("User does not exist");
         else
             return list.get(0);
+    }
+    public User getUserBalance(Long id){
+        UserTransactionSum income = repository.userTransactionSum(id,true);
+        UserTransactionSum outcome = repository.userTransactionSum(id,false);
+        Optional<User> opuser = repository.findById(id);
+        if(!opuser.isPresent()){
+            return null;
+        }
+        User us = opuser.get();
+        us.setBalance(income.getTotal()-outcome.getTotal());
+        return repository.save(us);
     }
 
 }
