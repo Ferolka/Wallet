@@ -28,7 +28,7 @@ public interface CommonController<E extends AbstractEntity> {
     ResponseEntity<List<E>> getAll();
 
     @DeleteMapping
-    Boolean delete(@RequestParam Long id);
+    ResponseEntity<Boolean> delete(@RequestParam Long id);
 
     @DeleteMapping("/all")
     Boolean deleteAll();

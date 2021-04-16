@@ -72,8 +72,8 @@ public abstract class AbstractController<E extends AbstractEntity, S extends Com
 
 
     @Override
-    public Boolean delete(@RequestParam Long id) {
-        return service.deleteById(id);
+    public ResponseEntity<Boolean> delete(@RequestParam Long id) {
+        return ResponseEntity.ok(service.deleteById(id));
     }
 
     @Override
