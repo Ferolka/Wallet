@@ -19,7 +19,7 @@ import javax.persistence.*;
 @Entity
 @Table(name="transactions")
 @Transactional
-@JsonIgnoreProperties({"hibernateLazyInitializer","handler","user","scheduledTransaction"})
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
 public class Transactions extends AbstractEntity {
 
 

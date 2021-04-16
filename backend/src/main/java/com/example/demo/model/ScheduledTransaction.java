@@ -9,7 +9,7 @@ import java.util.Collection;
 @Entity
 @Table(name = "scheduled_transaction")
 @Transactional
-@JsonIgnoreProperties({"hibernateLazyInitializer","handler","transactions","user"})
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler","transactions"})
 public class ScheduledTransaction extends AbstractEntity{
     private double Amount;
     private String nextsend;

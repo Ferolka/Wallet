@@ -15,7 +15,7 @@ import java.util.List;
 
 
 @Entity
-@JsonIgnoreProperties({"hibernateLazyInitializer","handler","schtransactions"})
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler","schtransactions","transactions"})
 public class User extends AbstractEntity{
 
     @Column
