@@ -78,7 +78,7 @@ public class ScheduledTransaction extends AbstractEntity{
     }
 
     public void setCategory(com.example.demo.model.Category category) {
-        category = category;
+        this.category = category;
     }
 
     public User getUser() {
