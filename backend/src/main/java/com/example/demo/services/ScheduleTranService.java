@@ -15,9 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class ScheduleTranService extends AbstractService<ScheduledTransaction, ScheduleTranRepository> {
@@ -34,8 +32,11 @@ public class ScheduleTranService extends AbstractService<ScheduledTransaction, S
 
     public List<ScheduledTransaction> getUserTransaction(Long userId) {
 
-        //List<Transactions> res = repository.getUserTransactions(userId);
-        return repository.getUserTransactions(userId);
+        List<ScheduledTransaction> res = repository.getUserTransactions(userId);
+        res.sort((o1, o2) -> o1.getNextsend().compareTo(o2.getNextsend()));
+        //res.sort(Comparator.comparing(ScheduledTransaction::getNextsend).reversed());
+        //return repository.getUserTransactions(userId);
+        return res;
 
     }
     public boolean approve(Long schtranId) {
