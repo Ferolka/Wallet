@@ -70,18 +70,18 @@ public class UserController extends AbstractController<User, UserService> {
         super(service);
     }
 
-    @GetMapping(value = "/{id}")
-    public User findOne(@PathVariable Long id) {
-        return service.getUserById(id);
+    @GetMapping("/{id}")
+    public ResponseEntity<User> findOne(@PathVariable Long id) {
+        return ResponseEntity.ok(service.getUserById(id));
     }
 
-    @PostMapping("/login")
+    @GetMapping("/login")
     public ResponseEntity<String> login(
             @RequestParam("login") String login,
             @RequestParam("password") String password)
     {
         Long id = service.loginUser(login, password).getId();
-        return new ResponseEntity<>(id.toString(), HttpStatus.OK);
+        return ResponseEntity.ok(id.toString());
     }
 
     @PostMapping("/registration")
@@ -91,7 +91,7 @@ public class UserController extends AbstractController<User, UserService> {
             @RequestParam("password") String password)
     {
         Long id = service.registerNewUserAccount(name, login, password).getId();
-        return new ResponseEntity<>(id.toString(), HttpStatus.OK);
+        return ResponseEntity.ok(id.toString());
     }
 
     @GetMapping("/list")
@@ -100,6 +100,7 @@ public class UserController extends AbstractController<User, UserService> {
         model.addAttribute("users", service.getAll());
         return "user/list";
     }
+
     @GetMapping(value = "getBalance/{id}")
     public ResponseEntity<User> getBalance(@PathVariable Long id) {
         return ResponseEntity.ok(service.getUserBalance(id));

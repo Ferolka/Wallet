@@ -1,89 +1,72 @@
 package com.example.demo;
 
-import static org.apache.commons.lang3.RandomStringUtils.randomAlphabetic;
-import static org.apache.commons.lang3.RandomStringUtils.randomNumeric;
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.containsString;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import org.junit.jupiter.api.Test;
 
-import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-
-
-import io.restassured.RestAssured;
-import io.restassured.http.ContentType;
-import io.restassured.response.Response;
-
-//import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.context.SpringBootTest;
-
+import org.springframework.test.web.servlet.MockMvc;
 
 @SpringBootTest
+@AutoConfigureMockMvc
 class DemoApplicationTests {
-
-
-    private final String redirectUrl = "http://localhost:8080/";
-    private final String authorizeUrlPattern = "http://localhost:8083/auth/realms/baeldung/protocol/openid-connect/auth?response_type=code&client_id=barClient&scope=%s&redirect_uri=" + redirectUrl;
-    private final String tokenUrl = "http://localhost:8083/auth/realms/baeldung/protocol/openid-connect/token";
-    private final String resourceUrl = "http://localhost:8082/resource-server-opaque/bars";
-    
+    @Autowired
+    private MockMvc mockMvc;
 
     @Test
-    void contextLoads() {
+    public void startTest() throws Exception {
+        this.mockMvc.perform(get("/"))
+                .andDo(print())
+                .andExpect(status().isOk());
     }
-
 
     @Test
-    public void givenUserWithReadScope_whenGetFooResource_thenSuccess() {
-        String accessToken = obtainAccessToken("read");
-
-        Response response = RestAssured.given()
-                .header(HttpHeaders.AUTHORIZATION, "Bearer " + accessToken)
-                .get("http://localhost:8081/resource-server-jwt/user");
-              assertThat(response.as(List.class)).hasSizeGreaterThan(0);
-    }
-    
-
-    private String obtainAccessToken(String scopes) {
-        // obtain authentication url with custom codes
-        Response response = RestAssured.given()
-            .redirects()
-            .follow(false)
-            .get(String.format(authorizeUrlPattern, scopes));
-        String authSessionId = response.getCookie("AUTH_SESSION_ID");
-        String kcPostAuthenticationUrl = response.asString()
-            .split("action=\"")[1].split("\"")[0].replace("&amp;", "&");
-
-        // obtain authentication code and state
-        response = RestAssured.given()
-            .redirects()
-            .follow(false)
-            .cookie("AUTH_SESSION_ID", authSessionId)
-            .formParams("username", "john@test.com", "password", "123", "credentialId", "")
-            .post(kcPostAuthenticationUrl);
-        assertThat(HttpStatus.FOUND.value()).isEqualTo(response.getStatusCode());
-
-        // extract authorization code
-        String location = response.getHeader(HttpHeaders.LOCATION);
-        String code = location.split("code=")[1].split("&")[0];
-
-        // get access token
-        Map<String, String> params = new HashMap<String, String>();
-        params.put("grant_type", "authorization_code");
-        params.put("code", code);
-        params.put("client_id", "barClient");
-        params.put("redirect_uri", redirectUrl);
-        params.put("client_secret", "barClientSecret");
-        response = RestAssured.given()
-            .formParams(params)
-            .post(tokenUrl);
-        return response.jsonPath()
-            .getString("access_token");
+    public void testCategoty() throws Exception {
+        this.mockMvc.perform(get("/category/all"))
+                .andExpect(status().isOk());
     }
 
+    @Test
+    public void testScheduleTransactions() throws Exception {
+        this.mockMvc.perform(get("/scheduletran/all"))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void testUsers() throws Exception {
+        this.mockMvc.perform(get("/user/all"))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void testTransaction() throws Exception {
+        this.mockMvc.perform(get("/user/all"))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void testUserTransaction() throws Exception {
+        this.mockMvc.perform(get("/transaction/getUserTransaction/1"))
+                .andDo(print())
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void getExistUserById() throws Exception {
+        this.mockMvc.perform(get("/user/1"))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void getNotExistUserById() throws Exception {
+        this.mockMvc.perform(get("/user/999"))
+                .andExpect(status().isNotFound());
+    }
 
 }
