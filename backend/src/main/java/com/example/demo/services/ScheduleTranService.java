@@ -32,11 +32,11 @@ public class ScheduleTranService extends AbstractService<ScheduledTransaction, S
 
     public List<ScheduledTransaction> getUserTransaction(Long userId) {
 
-        List<ScheduledTransaction> res = repository.getUserTransactions(userId);
-        res.sort((o1, o2) -> o1.getNextsend().compareTo(o2.getNextsend()));
+        //List<ScheduledTransaction> res = repository.getUserTransactions(userId);
+        //res.sort((o1, o2) -> o1.getNextsend().compareTo(o2.getNextsend()));
         //res.sort(Comparator.comparing(ScheduledTransaction::getNextsend).reversed());
-        //return repository.getUserTransactions(userId);
-        return res;
+        return repository.getUserTransactions(userId);
+        //return res;
 
     }
     public boolean approve(Long schtranId) {
