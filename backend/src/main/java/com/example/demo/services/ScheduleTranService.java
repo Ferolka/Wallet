@@ -64,7 +64,7 @@ public class ScheduleTranService extends AbstractService<ScheduledTransaction, S
         tran.setDate(formatter.format(date));
         tran.setAmount(sch.getAmount());
         tran.setIsincome(!cat.isOutcome());
-        tran.setComment("Scheduled");
+        tran.setComment(sch.getComment());
         transactionRepository.save(tran);
         if(sch.isSchedule()){
            date= DateUtils.addMonths(date,1);

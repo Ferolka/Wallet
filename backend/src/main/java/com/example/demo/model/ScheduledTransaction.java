@@ -15,16 +15,18 @@ public class ScheduledTransaction extends AbstractEntity{
     private String nextsend;
     private boolean Schedule;
     private short Status;
+    private String Comment;
     @ManyToOne(fetch = FetchType.LAZY,cascade= CascadeType.REMOVE)
     @JoinColumn (name="userid")
     private User user;
-    public ScheduledTransaction(double amount, String nextsend, boolean schedule,short status,User user, Category category) {
+    public ScheduledTransaction(double amount, String nextsend, boolean schedule,short status,User user, Category category, String comment) {
     this.Amount=amount;
     this.nextsend = nextsend;
     this.Schedule=schedule;
     this.Status=status;
     this.user=user;
     this.category=category;
+    this.Comment = comment;
     }
 
     @ManyToOne (fetch=FetchType.LAZY, cascade= CascadeType.REMOVE)
@@ -90,5 +92,13 @@ public class ScheduledTransaction extends AbstractEntity{
     }
 
     public ScheduledTransaction() {
+    }
+
+    public String getComment() {
+        return Comment;
+    }
+
+    public void setComment(String comment) {
+        Comment = comment;
     }
 }
